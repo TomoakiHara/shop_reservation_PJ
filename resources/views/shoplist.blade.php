@@ -15,6 +15,7 @@
       justify-content: space-between;
     }
 
+    /* メニューアイコン */
     .menu_block {
       display: flex;
       justify-content: flex-start;
@@ -56,12 +57,12 @@
       margin-left: 40px;
     }
 
+    /* 検索バー */
     .search {
       background-color: white;
       height: 30px;
       margin-top:20px;
       padding:10px 10px;
-      /* position: relative; */
     }
     .area_search {
       padding:5px 10px;
@@ -81,9 +82,17 @@
       padding:5px 10px;
     }
 
+    /* 店舗一覧 */
+    .shop_list {
+      display:flex;
+      justify-content:center;
+      flex-wrap: wrap;
+      margin:0px 20px;
+    }
     .card {
       width:200px;
       position: relative;
+      margin:10px 20px 110px;
     }
     .shop_list_photo {
       width:100%;
@@ -131,40 +140,42 @@
       </div>
       <h1 class="icon">Rese</h1>
     </div>
+
     <form class="search" action="/search" method="get">
       <select name="area" class="area_search">
         <option hidden>All area</option>
-        <option value="1">東京都</option>
-        <option value="2">大阪府</option>
-        <option value="3">福岡県</option>
+        @foreach($areas as $area)
+        <option value="{{$area->id}}">{{$area->area}}</option>
+        @endforeach
       </select>
       <select name="genre" class="genre_search">
-        <option hidden>All area</option>
-        <option value="1">寿司</option>
-        <option value="2">焼肉</option>
-        <option value="3">居酒屋</option>
-        <option value="4">イタリアン</option>
-        <option value="5">ラーメン</option>
-      </select>
+        <option hidden>All genre</option>
+        @foreach($genres as $genre)
+        <option value="{{$genre->id}}">{{$genre->genre}}</option>
+        @endforeach
+      </select>      
       <img src="/images/glass_icon.png" class="glass_icon_img">
-      <input type="text" class="search_form">
+      <input type="text" class="search_form" placeholder="search...">
     </form>
   </header>
-
+  
   <main class="shop_list">
-    <div class="card">
-      <img src="https://coachtech-matter.s3-ap-northeast-1.amazonaws.com/image/sushi.jpg" class="shop_list_photo">
+    @foreach($shops as $shop)
+    <div class="card">      
+      <img src="{{$shop->img}}" class="shop_list_photo">
       <div class="shop_list_contents">
-        <h3 class="shop_list_name">***</h3>
-        <p class="shop_tag">###</p>
+        <h3 class="shop_list_name">{{$shop->shop}}</h3>
+        <p class="shop_tag">#{{$shop->area->area}}#{{$shop->genre->genre}}</p>
         <div class="shop_link">
-          <form action="/detail" method="get">
+          <form action="/detail/?id={{$shop->id}}" method="post">
+            @csrf
             <input class="shop_detail_botton" type="submit" value="詳しくみる">
           </form>
           <div class="favorite_icon"></div>
         </div>
-      </div>
+      </div>      
     </div>
+    @endforeach
   </main>
 </body>
 </html>

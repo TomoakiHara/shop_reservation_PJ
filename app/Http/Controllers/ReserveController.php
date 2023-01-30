@@ -8,8 +8,17 @@ use App\Http\Requests\ReserveRequest;
 
 class ReserveController extends Controller
 {
-    public function reserve()
+    public function reserve(Request $request)
     {
+        // if () {
+        // return view('/register')
+        // }
+
+        $inputs = $request->all();
+        dd($inputs);
+        unset($inputs['_token']);
+
+        Reserve::create($inputs);
         return view('reserve');
     }
 

@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Area extends Model
 {
     use HasFactory;
+
+    protected $guarded = array('id');
+    protected $fillable = ['id','area'];
 }

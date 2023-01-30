@@ -126,29 +126,31 @@
         </div>
         <h1 class="icon">Rese</h1>
       </div>
+      @foreach($details as $detail)
       <div class="shop_detail_title_block">
         <form action="/" method="get">
           @csrf
           <input class="shop_detail_return_botton" type="submit" value="<">
         </form>
-        <h2 class="shop_detail_name">仙人</h2>
+        <h2 class="shop_detail_name">{{$detail->shop}}</h2>
       </div>
-      <img src="https://coachtech-matter.s3-ap-northeast-1.amazonaws.com/image/sushi.jpg" class="shop_detail_photo">
-      <p class="shop_detail_tag">###</p>
-      <p class="shop_detail_summary">+++</p>
+      <img src="{{$detail->img}}" class="shop_detail_photo">
+      <p class="shop_detail_tag">#{{$detail->area->area}}#{{$detail->genre->genre}}</p>
+      <p class="shop_detail_summary">{{$detail->summary}}</p>
+      @endforeach
     </div>
-    <form action="/reserve" method="post" class="shop_reservation_form">
+    <form action="/reserve/?id={{$detail->id}}" method="post" class="shop_reservation_form">
       @csrf
       <div class="shop_reservation">      
         <h3 class="shop_reservation_title">予約</h3>
         <div>
-          <input type="date" class="shop_reservation_date">
+          <input type="date" name="reserve_date" class="shop_reservation_date">
         </div>
         <div>
-          <input type="text" class="shop_reservation_time">
+          <input type="text" name="reserve_time" class="shop_reservation_time">
         </div>
         <div>
-          <input type="text" class="shop_reservation_number">
+          <input type="text" name="number" class="shop_reservation_number">
         </div>
         <table class="shop_reservation_table">
           <tr class="shop_detail_table_row">
