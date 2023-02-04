@@ -127,6 +127,14 @@
       padding: 5px 15px;
       margin-left:10px;
     }
+    .favorite_icon {
+      position: absolute;
+      top: 70px;
+      left: 160px;
+      display: block;
+      border: none;
+      background-color: white;
+    }
 
   </style>
 </head>
@@ -168,10 +176,25 @@
         <p class="shop_tag">#{{$shop->area->area}}#{{$shop->genre->genre}}</p>
         <div class="shop_link">
           <form action="/detail/?id={{$shop->id}}" method="post">
+          <!-- <form action="/detail/{{$shop->id}}" method="post"> -->
             @csrf
             <input class="shop_detail_botton" type="submit" value="詳しくみる">
           </form>
-          <div class="favorite_icon"></div>
+          <!-- <form action="/favorite/?shop_id={{$shop->id}}&user_id=1" method="post">
+            @csrf
+            <input class="favorite_icon" type="submit" value="❤">
+          </form> -->
+          @if ($shop->id = $shop->shop_id && Auth::user()->id = $shop->user_id)
+          <form action="/delete/?shop_id={{$shop->id}}&user_id=1" method="post">
+            @csrf
+            <input class="favorite_icon" type="submit" value="❤">
+          </form>
+          @else
+          <form action="/favorite/?shop_id={{$shop->id}}&user_id=1" method="post">
+            @csrf
+            <input class="favorite_icon" type="submit" value="♡">
+          </form>
+          @endif
         </div>
       </div>      
     </div>

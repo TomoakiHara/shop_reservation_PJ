@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Shop;
 use App\Models\Area;
 use App\Models\Genre;
+use App\Models\Favorite;
 use Illuminate\Http\Request;
 
 class ShopController extends Controller
@@ -17,7 +18,10 @@ class ShopController extends Controller
         // dd($areas);
         $genres = Genre::all();
         // dd($genres);
-        $param = ['shops' => $shops, 'areas' => $areas, 'genres' => $genres];
+        $favorites = Favorite::all();
+        // dd($favorites);
+        $param = ['shops' => $shops, 'areas' => $areas, 'genres' => $genres, 'favorites' => $favorites];
+        // dd($param);
         return view('shoplist', $param);
     }
 

@@ -111,8 +111,6 @@
       border: none;
       padding:10px 0px;
     }
-
-
   </style>
 </head>
 <body>
@@ -139,7 +137,7 @@
       <p class="shop_detail_summary">{{$detail->summary}}</p>
       @endforeach
     </div>
-    <form action="/reserve/?id={{$detail->id}}" method="post" class="shop_reservation_form">
+    <form action="/reserve/?shop_id={{$detail->id}}&user_id=1" method="post" class="shop_reservation_form">
       @csrf
       <div class="shop_reservation">      
         <h3 class="shop_reservation_title">予約</h3>

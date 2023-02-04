@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>reserve completion page</title>
   <style>
-
     body {
       background-color: #e3e3e3;
     }

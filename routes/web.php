@@ -3,8 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\ReserveController;
-// use App\Http\Controllers\FavoriteController;
-// use App\Http\Controllers\UserController;
+use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\UserController;
 
 
 /*
@@ -31,11 +31,13 @@ use App\Http\Controllers\ReserveController;
 Route::get('/', [ShopController::class, 'index']);
 // Route::get('/search', [ShopController::class, 'search']);
 Route::post('/detail', [ShopController::class, 'detail']);
-Route::post('/reserve', [ReserveController::class, 'reserve']);
+// Route::post('/detail/{id}', [ShopController::class, 'detail']);
+// Route::post('/reserve', [ReserveController::class, 'reserve']);
+Route::post('/reserve', [ReserveController::class, 'reserve'])->middleware('auth');
 // Route::post('/cancel', [ReserveController::class, 'cancel']);
 Route::get('/mypage', [ReserveController::class, 'mypage']);
-// Route::post('/favorite', [FavoriteController::class, 'favorite']);
-// Route::get('/user', [UserController::class, 'user']);
+Route::post('/favorite', [FavoriteController::class, 'favorite']);
+Route::get('/user', [UserController::class, 'user'])->name('login');;
 Route::post('/register', [UserController::class, 'register']);
 Route::get('/auth', [UserController::class, 'auth']);
 Route::get('/login', [UserController::class, 'login']);
