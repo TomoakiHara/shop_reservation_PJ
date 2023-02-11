@@ -176,25 +176,22 @@
         <p class="shop_tag">#{{$shop->area->area}}#{{$shop->genre->genre}}</p>
         <div class="shop_link">
           <form action="/detail/?id={{$shop->id}}" method="post">
-          <!-- <form action="/detail/{{$shop->id}}" method="post"> -->
             @csrf
             <input class="shop_detail_botton" type="submit" value="詳しくみる">
           </form>
-          <!-- <form action="/favorite/?shop_id={{$shop->id}}&user_id=1" method="post">
-            @csrf
-            <input class="favorite_icon" type="submit" value="❤">
-          </form> -->
-          @if ($shop->id = $shop->shop_id && Auth::user()->id = $shop->user_id)
-          <form action="/delete/?shop_id={{$shop->id}}&user_id=1" method="post">
+          @foreach($shop->favorite as $favorite)
+          @if ($user->id == $favorite->user_id && $shop->id == $favorite->shop_id  )
+          <form action="/delete/?shop_id={{$shop->id}}&user_id={{$user->id}}" method="post">
             @csrf
             <input class="favorite_icon" type="submit" value="❤">
           </form>
           @else
-          <form action="/favorite/?shop_id={{$shop->id}}&user_id=1" method="post">
+          <form action="/favorite/?shop_id={{$shop->id}}&user_id={{$user->id}}" method="post">
             @csrf
             <input class="favorite_icon" type="submit" value="♡">
           </form>
           @endif
+          @endforeach
         </div>
       </div>      
     </div>

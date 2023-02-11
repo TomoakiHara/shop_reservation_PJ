@@ -11,7 +11,7 @@ class FavoriteController extends Controller
     {
         $inputs = $request->all();
         // dd($request);
-        // dd($form);
+        // dd($inputs);
         unset($inputs['_token']);
         Favorite::create($inputs);
         return redirect('/');
@@ -21,9 +21,10 @@ class FavoriteController extends Controller
     {
         $inputs = $request->all();
         // dd($request);
-        // dd($form);
+        // dd($inputs);
         unset($inputs['_token']);
-        Favorite::delete($inputs);
+        Favorite::where('user_id', $request->user_id)->where('shop_id', $request->shop_id)->delete($inputs);
+        // Favorite::delete($inputs);
         return redirect('/');
     }
 

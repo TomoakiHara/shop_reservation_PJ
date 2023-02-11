@@ -11,4 +11,14 @@ class Reserve extends Model
 
     protected $guarded = array('id');
     protected $fillable = ['id','user_id','shop_id','reserve_date','reserve_time','number'];
+
+    public function shop()
+    {
+        return $this->belongsTo('App\Models\Shop');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
 }

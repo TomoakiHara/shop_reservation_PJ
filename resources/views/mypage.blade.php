@@ -56,11 +56,7 @@
       justify-content: space-around;
     }
     .reservation_statues {
-      width:50vw;
-      margin:20px 20px;
-    }
-    .favorite_shop_list {
-      width:50vw;
+      width:30vw;
       margin:20px 20px;
     }
 
@@ -68,6 +64,12 @@
     .reservation_statues_block {
       background-color: #0000ec;
       padding:20px 20px; 
+    }
+    .mypage_resercation_icon {
+      width:20px;
+      height:20px;
+      margin-top:20px;
+      margin-right:10px;
     }
     
 
@@ -78,6 +80,52 @@
     .mypage_reservation_icon_block_left {
       display: flex;
       justify-content: flex-start;
+    }
+
+
+    .favorite_shop_list {
+      display:flex;
+      justify-content:center;
+      flex-wrap: wrap;
+      margin:0px 20px;
+    }
+    .card {
+      width:200px;
+      position: relative;
+      margin:10px 20px 110px;
+    }
+    .shop_list_photo {
+      width:100%;
+      z-index: 1;
+    }
+    .shop_list_contents {
+      width:100%;
+      height:100px;
+      background-color: white;
+      position: absolute;
+      top: 133px;
+    }
+    .shop_list_name {
+      margin-left:10px;
+      position: absolute;
+    }
+    .shop_tag {
+      margin-left:10px;
+      font-size:10px;
+      position: absolute;
+      top: 30px;
+    }
+    .shop_detail_botton {
+      position: absolute;
+      top: 70px;
+      display: block;
+      background-color: #0000ec;
+      color:white;
+      border: none;
+      border-radius:5px;
+      font-size: 10px;
+      padding: 5px 15px;
+      margin-left:10px;
     }
 
   </style>
@@ -96,52 +144,56 @@
   <main class="mypage_contents">
     <div class="reservation_statues">
       <h3 class="reservation_statues_title">予約状況</h3>
+      @foreach($reserves as $reserve)
       <div class="reservation_statues_block">
         <div class="mypage_reservation_icon_block">
           <div class="mypage_reservation_icon_block_left">
-            <div class="mypage_resercation_icon"></div>
-            <p class="mypage_reservation_title">予約1</p>
+            <img src="/images/timer_icon.png" class="mypage_resercation_icon">
+            <p class="mypage_reservation_title">予約{{$reserve->id}}</p>
           </div>
           <form action="cancel" method="get">
             <input class="shop_detail_return_botton" type="submit" value="×">
           </form>
         </div>
-      </div>
-      <table class="shop_reservation_table">
-          <tr class="shop_detail_table_row">
-            <th class="shop_reservation_table_title">Shop</th>
-            <td class="shop_reservation_tabel_item">***</td>
-          </tr>
-          <tr class="shop_detail_table_row">
-            <th class="shop_reservation_table_title">Date</th>
-            <td class="shop_reservation_tabel_item">***</td>
-          </tr>
-          <tr class="shop_detail_table_row">
-            <th class="shop_reservation_table_title">Time</th>
-            <td class="shop_reservation_tabel_item">***</td>
-          </tr>
-          <tr class="shop_detail_table_row">
-            <th class="shop_reservation_table_title">Number</th>
-            <td class="shop_reservation_tabel_item">***</td>
-          </tr>
-      </table>    
+        <table class="shop_reservation_table">
+            <tr class="shop_detail_table_row">
+              <th class="shop_reservation_table_title">Shop</th>
+              <td class="shop_reservation_tabel_item">{{$reserve->shop->shop}}</td>
+            </tr>
+            <tr class="shop_detail_table_row">
+              <th class="shop_reservation_table_title">Date</th>
+              <td class="shop_reservation_tabel_item">{{$reserve->reserve_date}}</td>
+            </tr>
+            <tr class="shop_detail_table_row">
+              <th class="shop_reservation_table_title">Time</th>
+              <td class="shop_reservation_tabel_item">{{$reserve->reserve_time}}</td>
+            </tr>
+            <tr class="shop_detail_table_row">
+              <th class="shop_reservation_table_title">Number</th>
+              <td class="shop_reservation_tabel_item">{{$reserve->number}}人</td>
+            </tr>
+        </table>  
+      </div> 
+      @endforeach
     </div>  
     <div class="favorites_shop_list">
-      <h2 class="login_user">testさん</h2>
+      <h2 class="login_user">{{$text}}</h2>
       <h3 class="favorite_shop_title">お気に入り店舗</h3>
+      @foreach($favorites as $favorite)
       <div class="card">
-        <img src="https://coachtech-matter.s3-ap-northeast-1.amazonaws.com/image/sushi.jpg" class="shop_list_photo">
+        <img src="{{$favorite->shop->img}}" class="shop_list_photo">
         <div class="shop_list_contents">
-          <h3 class="shop_list_name">***</h3>
-          <p class="shop_tag">###</p>
+          <h3 class="shop_list_name">{{$favorite->shop->shop}}</h3>
+          <p class="shop_tag">#{{$favorite->shop->area->area}}#{{$favorite->shop->genre->genre}}</p>
           <div class="shop_link">
-            <form action="/detail" method="get">
+            <form action="/" method="get">
               <input class="shop_detail_botton" type="submit" value="詳しくみる">
             </form>
             <div class="favorite_icon"></div>
           </div>
         </div>
       </div>
+      @endforeach
     </div>
   </main>
 </body>   

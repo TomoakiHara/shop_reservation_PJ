@@ -37,6 +37,7 @@ Route::post('/reserve', [ReserveController::class, 'reserve'])->middleware('auth
 // Route::post('/cancel', [ReserveController::class, 'cancel']);
 Route::get('/mypage', [ReserveController::class, 'mypage']);
 Route::post('/favorite', [FavoriteController::class, 'favorite']);
+Route::post('/delete', [FavoriteController::class, 'delete']);
 Route::get('/user', [UserController::class, 'user'])->name('login');;
 Route::post('/register', [UserController::class, 'register']);
 Route::get('/auth', [UserController::class, 'auth']);

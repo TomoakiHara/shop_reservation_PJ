@@ -7,6 +7,7 @@ use App\Models\Area;
 use App\Models\Genre;
 use App\Models\Favorite;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ShopController extends Controller
 {
@@ -18,9 +19,15 @@ class ShopController extends Controller
         // dd($areas);
         $genres = Genre::all();
         // dd($genres);
+        $user = Auth::user();
+        // dd($login_id);
+        if($user == null) {
         $favorites = Favorite::all();
+        }else{
+        $favorites = Favorite::where('user_id', $user->id) -> get();
+        }
         // dd($favorites);
-        $param = ['shops' => $shops, 'areas' => $areas, 'genres' => $genres, 'favorites' => $favorites];
+        $param = ['shops' => $shops, 'areas' => $areas, 'genres' => $genres,'favorites' => $favorites, 'user' => $user];
         // dd($param);
         return view('shoplist', $param);
     }
