@@ -29,12 +29,12 @@ use App\Http\Controllers\UserController;
 // require __DIR__.'/auth.php';
 
 Route::get('/', [ShopController::class, 'index']);
-// Route::get('/search', [ShopController::class, 'search']);
+Route::get('/search', [ShopController::class, 'search']);
 Route::post('/detail', [ShopController::class, 'detail']);
 // Route::post('/detail/{id}', [ShopController::class, 'detail']);
 // Route::post('/reserve', [ReserveController::class, 'reserve']);
 Route::post('/reserve', [ReserveController::class, 'reserve'])->middleware('auth');
-// Route::post('/cancel', [ReserveController::class, 'cancel']);
+Route::post('/cancel', [ReserveController::class, 'cancel']);
 Route::get('/mypage', [ReserveController::class, 'mypage']);
 Route::post('/favorite', [FavoriteController::class, 'favorite']);
 Route::post('/delete', [FavoriteController::class, 'delete']);
@@ -43,6 +43,7 @@ Route::post('/register', [UserController::class, 'register']);
 Route::get('/auth', [UserController::class, 'auth']);
 Route::get('/login', [UserController::class, 'login']);
 Route::get('/login_reserve', [UserController::class, 'login_reserve']);
+Route::get('/logout', [UserController::class, 'logout']);
 
 // Route::get('/', function () {
 //     return view('welcome');

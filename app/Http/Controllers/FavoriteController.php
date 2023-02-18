@@ -9,6 +9,7 @@ class FavoriteController extends Controller
 {
     public function favorite(Request $request)
     {
+        
         $inputs = $request->all();
         // dd($request);
         // dd($inputs);

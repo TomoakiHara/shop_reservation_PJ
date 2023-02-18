@@ -13,37 +13,86 @@ class ShopController extends Controller
 {
     public function index()
     {
-        $shops = Shop::all();
+        // (チャレンジ)Eagerロードの制約
+
+        $user = Auth::user();
+        // dd($user);
+
+        if(is_null($user)) {
+            $shops = Shop::all();
+            // dd($shops);
+            $areas = Area::all();
+            // dd($areas);
+            $genres = Genre::all();
+            // dd($genres);
+            $param = ['shops' => $shops, 'areas' => $areas, 'genres' => $genres, 'user' => $user];
+            // dd($param);
+            return view('shoplist', $param);
+        }else{
+            $shops = Shop::all();
+            // dd($shops);
+            $areas = Area::all();
+            // dd($areas);
+            $genres = Genre::all();
+            // dd($genres);
+            $favorites = Favorite::where('user_id', $user->id) -> get();
+            // dd($favorites);
+            $param = ['shops' => $shops, 'areas' => $areas, 'genres' => $genres,'favorites' => $favorites, 'user' => $user];
+            // dd($param);
+            return view('shoplist', $param);
+        }
+    }
+
+    public function search(Request $request)
+    {
+        $query = Shop::query();
+        // dd($query);
+        // dd($request);
+        
+        $area_id = $request->input('area_id');
+        $genre_id = $request->input('genre_id');
+        $shop = $request->input('shop');
+        // dd($area_id);
+        // dd($genre_id);
+        // dd($shop);
+
+        if(!empty($area_id)) {
+            $query->where('area_id', 'like', "%{$area_id}%");
+        }
+        if(!empty($genre_id)) {
+            $query->where('genre_id', 'like', "%{$genre_id}%");
+        }
+        if(!empty($shop)) {
+            $query->where('shop', 'like', "%{$shop}%");
+        }
+
+        $shops = $query->get();
         // dd($shops);
+
         $areas = Area::all();
         // dd($areas);
         $genres = Genre::all();
         // dd($genres);
-        $user = Auth::user();
-        // dd($login_id);
-        if($user == null) {
-        $favorites = Favorite::all();
-        }else{
-        $favorites = Favorite::where('user_id', $user->id) -> get();
-        }
-        // dd($favorites);
-        $param = ['shops' => $shops, 'areas' => $areas, 'genres' => $genres,'favorites' => $favorites, 'user' => $user];
+
+        $param = [
+        'shops' => $shops,
+        'areas' => $areas, 
+        'genres' => $genres
+        ];
         // dd($param);
         return view('shoplist', $param);
     }
 
-    public function search()
-    {
-        return view('shoplist');
-    }
-
     public function detail(Request $request)
     {
+        $user = Auth::user();
+        // dd($user);
         $form = $request->all();
         // dd($request);
         // dd($form);
         $details = Shop::where('id', $request->id)->get();
         $param = [
+        'user' => $user,
         'details' => $details,
         ];
         // dd($param);
