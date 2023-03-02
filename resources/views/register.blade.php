@@ -5,104 +5,35 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>register page</title>
-  <style>
-    body {
-      background-color: #e3e3e3;
-    }
-
-    .menu_block {
-      display: flex;
-      justify-content: flex-start;
-    }
-    .menu_link {
-      background-color: #0000ec;
-      display: inline-block;
-      width: 40px;
-      height: 40px;
-      cursor: pointer;
-      position: relative;
-      left: 20px;
-      top: 20px;
-    }
-    .menu_line--top,
-    .menu_line--middle,
-    .menu_line--bottom {
-      display: inline-block; 
-      height: 1px;
-      background-color: white;
-      position: absolute;
-      transition: 0.5s;
-      left: 10px
-    }
-    .menu_line--top {
-      width: 25%; 
-      top: 10px;
-    }
-    .menu_line--middle {
-      width: 50%;
-      top: 20px;
-    }
-    .menu_line--bottom {
-      width: 12%;
-      bottom: 10px;
-    }
-    .icon {
-      color: #0000ec;
-      margin-left: 40px;
-    }
-
-    .register_contents {
-      background-color: white;
-      margin:20px auto;
-      width: 50vw;
-    }
-    .register_title {
-      background-color: #0000ec;
-      color:white;
-      padding: 15px 20px;
-    }
-    .form_text_block {
-      text-align: center;
-      margin:10px 0;
-    }
-    .person_icon_img {
-      width:20px;
-    }
-    .email_icon_img {
-      width:20px;
-    }
-    .key_icon_img {
-      width:20px;
-    }
-    .form_text {
-      border: none;
-      border-bottom:1px solid gray;
-    }
-    .register_botton {
-      background-color:#0000ff;
-      color:white;
-      border: none;
-      padding: 5px 15px;
-      margin-bottom:10px;
-      
-    }
-    .register_botton_block {
-      display: flex;
-      justify-content: space-between;
-      margin:10px 10px;
-    }
-    
-
-  </style>
+  <link href="{{ asset('/dist/css/register.css') }}" rel="stylesheet" type="text/css">
+  <link href="{{ asset('/dist/css/nav.css') }}" rel="stylesheet" type="text/css">
 </head>
 <body>
   <header class="header_register">
-    <div class="menu_block">
-      <div class="menu_link">
-        <span class="menu_line--top"></span>
-        <span class="menu_line--middle"></span>
-        <span class="menu_line--bottom"></span>
+    <!-- @component('components.nav-parts')
+    @endcomponent -->
+    <nav class="nav" id="nav">
+    @empty($user->id)
+      <ul>
+          <li><a href="/" class="menu_link_item">Home</a></li>
+          <li><a href="/user" class="menu_link_item">Registration</a></li>
+          <li><a href="/auth" class="menu_link_item">Login</a></li>
+      </ul>
+      @else
+      <ul>
+          <li><a href="/" class="menu_link_item">Home</a></li>
+          <li><a href="/logout" class="menu_link_item">Logout</a></li>
+          <li><a href="/mypage" class="menu_link_item">Mypage</a></li>
+      </ul>
+      @endempty
+      </nav>
+      <div class="menu_block">
+      <div class="menu_link" id="menu_link">
+          <span class="menu_line--top"></span>
+          <span class="menu_line--middle"></span>
+          <span class="menu_line--bottom"></span>
       </div>
+      <script src="{{ asset('/dist/js/menu.js') }}"></script>
       <h1 class="icon">Rese</h1>
     </div>
   </header>

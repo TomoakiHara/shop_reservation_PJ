@@ -58,9 +58,11 @@ class ShopController extends Controller
 
         if(!empty($area_id)) {
             $query->where('area_id', 'like', "%{$area_id}%");
+            // like無しでOK
         }
         if(!empty($genre_id)) {
             $query->where('genre_id', 'like', "%{$genre_id}%");
+            // like無しでOK
         }
         if(!empty($shop)) {
             $query->where('shop', 'like', "%{$shop}%");
@@ -75,6 +77,8 @@ class ShopController extends Controller
         // dd($genres);
 
         $param = [
+        'area_id' => $area_id,
+        'genre_id' => $genre_id,
         'shops' => $shops,
         'areas' => $areas, 
         'genres' => $genres

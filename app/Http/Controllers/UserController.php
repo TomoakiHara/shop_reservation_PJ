@@ -45,13 +45,15 @@ class UserController extends Controller
         // dd($password);
         if (Auth::attempt(['email' => $email,
             'password' => $password])) {
+            $user = Auth::user();
+            // dd($user);
             $text = Auth::user()->name . 'さん';
             // dd($text);
-            $reserves = Reserve::all();
+            $reserves = Reserve::where('user_id', $user->id) -> get();
             // dd($reserves);
-            $favorites = Favorite::all();
+            $favorites = Favorite::where('user_id', $user->id) -> get();
             // dd($favorites);
-            $param = ['text' => $text, 'reserves' => $reserves, 'favorites' => $favorites];
+            $param = ['user' => $user, 'text' => $text, 'reserves' => $reserves, 'favorites' => $favorites];
             return view('mypage', $param);
         } else {
             $text = 'ログインに失敗しました';
