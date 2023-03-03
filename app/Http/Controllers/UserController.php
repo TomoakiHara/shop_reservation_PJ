@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -17,7 +18,7 @@ class UserController extends Controller
         return view('register');
     }
 
-    public function register(Request $request)
+    public function register(UserRequest $request)
     {
         $name = $request->name;
         // dd($name);
@@ -56,7 +57,7 @@ class UserController extends Controller
             $param = ['user' => $user, 'text' => $text, 'reserves' => $reserves, 'favorites' => $favorites];
             return view('mypage', $param);
         } else {
-            $text = 'ログインに失敗しました';
+            $text = 'メールアドレスまたはパスワードが間違っています';
             return view('login',['text' => $text]);
         }
     }

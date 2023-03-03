@@ -79,6 +79,7 @@ class ShopController extends Controller
         $param = [
         'area_id' => $area_id,
         'genre_id' => $genre_id,
+        'shop' => $shop,
         'shops' => $shops,
         'areas' => $areas, 
         'genres' => $genres

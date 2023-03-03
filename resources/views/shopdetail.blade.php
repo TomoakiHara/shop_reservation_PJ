@@ -8,25 +8,24 @@
   <link href="{{ asset('/dist/css/shopdetail.css') }}" rel="stylesheet" type="text/css">
   <link href="{{ asset('/dist/css/nav.css') }}" rel="stylesheet" type="text/css">
 </head>
+
 <body>
   <main class="shop_detail_contents">
     <div class="shop_detail">
-      <!-- @component('components.nav-parts')
-      @endcomponent -->
       <nav class="nav" id="nav">
-    @empty($user->id)
-      <ul>
-          <li><a href="/" class="menu_link_item">Home</a></li>
-          <li><a href="/user" class="menu_link_item">Registration</a></li>
-          <li><a href="/auth" class="menu_link_item">Login</a></li>
-      </ul>
-      @else
-      <ul>
-          <li><a href="/" class="menu_link_item">Home</a></li>
-          <li><a href="/logout" class="menu_link_item">Logout</a></li>
-          <li><a href="/mypage" class="menu_link_item">Mypage</a></li>
-      </ul>
-      @endempty
+        @empty($user->id)
+          <ul>
+              <li><a href="/" class="menu_link_item">Home</a></li>
+              <li><a href="/user" class="menu_link_item">Registration</a></li>
+              <li><a href="/auth" class="menu_link_item">Login</a></li>
+          </ul>
+        @else
+          <ul>
+              <li><a href="/" class="menu_link_item">Home</a></li>
+              <li><a href="/logout" class="menu_link_item">Logout</a></li>
+              <li><a href="/mypage" class="menu_link_item">Mypage</a></li>
+          </ul>
+        @endempty
       </nav>
       <div class="menu_block">
       <div class="menu_link" id="menu_link">
@@ -38,95 +37,96 @@
       <h1 class="icon">Rese</h1>
     </div>
       @foreach($details as $detail)
-      <div class="shop_detail_title_block">
-        <form action="/" method="get">
-          @csrf
-          <input class="shop_detail_return_botton" type="submit" value="<">
-        </form>
-        <h2 class="shop_detail_name">{{$detail->shop}}</h2>
-      </div>
-      <img src="{{$detail->img}}" class="shop_detail_photo">
-      <p class="shop_detail_tag">#{{$detail->area->area}}#{{$detail->genre->genre}}</p>
-      <p class="shop_detail_summary">{{$detail->summary}}</p>
+        <div class="shop_detail_title_block">
+          <form action="/" method="get">
+            @csrf
+            <input class="shop_detail_return_botton" type="submit" value="<">
+          </form>
+          <h2 class="shop_detail_name">{{$detail->shop}}</h2>
+        </div>
+        <img src="{{$detail->img}}" class="shop_detail_photo">
+        <p class="shop_detail_tag">#{{$detail->area->area}}#{{$detail->genre->genre}}</p>
+        <p class="shop_detail_summary">{{$detail->summary}}</p>
       @endforeach
     </div>
     @empty($user->id)
-    <form action="/reserve/?shop_id={{$detail->id}}" method="post" class="shop_reservation_form">
-      @csrf
-      <div class="shop_reservation">      
-        <h3 class="shop_reservation_title">予約</h3>
-        <div>
-          <input type="date" name="reserve_date" class="shop_reservation_date" id="reserveDate">
+      <form action="/reserve/?shop_id={{$detail->id}}" method="post" class="shop_reservation_form">
+        @csrf
+        <div class="shop_reservation">      
+          <h3 class="shop_reservation_title">予約</h3>
+          <div>
+            <input type="date" name="reserve_date" class="shop_reservation_date" id="reserveDate">
+          </div>
+          <div>
+            @component('components.reserve_time')
+            @endcomponent
+          </div>
+          <div>
+            @component('components.reserve_number')
+            @endcomponent
+          </div>
+          <table class="shop_reservation_table">
+            <tr class="shop_detail_table_row">
+              <th class="shop_reservation_table_title">Shop</th>
+              <td class="shop_reservation_tabel_item">{{$detail->shop}}</td>
+            </tr>
+            <tr class="shop_detail_table_row">
+              <th class="shop_reservation_table_title">Date</th>
+              <td class="shop_reservation_tabel_item" id="msgDate"></td>
+            </tr>
+            <tr class="shop_detail_table_row">
+              <th class="shop_reservation_table_title">Time</th>
+              <td class="shop_reservation_tabel_item" id="msgTime"></td>
+            </tr>
+            <tr class="shop_detail_table_row">
+              <th class="shop_reservation_table_title">Number</th>
+              <td class="shop_reservation_tabel_item" id="msgNumber"></td>
+            </tr>
+            <script src="{{ asset('/dist/js/reserve.js') }}"></script>
+          </table>
         </div>
-        <div>
-          @component('components.reserve_time')
-          @endcomponent
-        </div>
-        <div>
-          @component('components.reserve_number')
-          @endcomponent
-        </div>
-        <table class="shop_reservation_table">
-          <tr class="shop_detail_table_row">
-            <th class="shop_reservation_table_title">Shop</th>
-            <td class="shop_reservation_tabel_item">{{$detail->shop}}</td>
-          </tr>
-          <tr class="shop_detail_table_row">
-            <th class="shop_reservation_table_title">Date</th>
-            <td class="shop_reservation_tabel_item" id="msgDate"></td>
-          </tr>
-          <tr class="shop_detail_table_row">
-            <th class="shop_reservation_table_title">Time</th>
-            <td class="shop_reservation_tabel_item" id="msgTime"></td>
-          </tr>
-          <tr class="shop_detail_table_row">
-            <th class="shop_reservation_table_title">Number</th>
-            <td class="shop_reservation_tabel_item" id="msgNumber"></td>
-          </tr>
-          <script src="{{ asset('/dist/js/reserve.js') }}"></script>
-        </table>
-      </div>
-      <input class="shop_reservation_botton" type="submit" value="予約する">              
-    </form> 
+        <input class="shop_reservation_botton" type="submit" value="予約する">              
+      </form> 
     @else
-    <form action="/reserve/?shop_id={{$detail->id}}&user_id={{$user->id}}" method="post" class="shop_reservation_form">
-      @csrf
-      <div class="shop_reservation">      
-        <h3 class="shop_reservation_title">予約</h3>
-        <div>
-          <input type="date" name="reserve_date" class="shop_reservation_date" id="reserveDate">
+      <form action="/reserve/?shop_id={{$detail->id}}&user_id={{$user->id}}" method="post" class="shop_reservation_form">
+        @csrf
+        <div class="shop_reservation">      
+          <h3 class="shop_reservation_title">予約</h3>
+          <div>
+            <input type="date" name="reserve_date" class="shop_reservation_date" id="reserveDate">
+          </div>
+          <div>
+            @component('components.reserve_time')
+            @endcomponent
+          </div>
+          <div>
+            @component('components.reserve_number')
+            @endcomponent
+          </div>
+          <table class="shop_reservation_table">
+            <tr class="shop_detail_table_row">
+              <th class="shop_reservation_table_title">Shop</th>
+              <td class="shop_reservation_tabel_item">{{$detail->shop}}</td>
+            </tr>
+            <tr class="shop_detail_table_row">
+              <th class="shop_reservation_table_title">Date</th>
+              <td class="shop_reservation_tabel_item" id="msgDate"></td>
+            </tr>
+            <tr class="shop_detail_table_row">
+              <th class="shop_reservation_table_title">Time</th>
+              <td class="shop_reservation_tabel_item" id="msgTime"></td>
+            </tr>
+            <tr class="shop_detail_table_row">
+              <th class="shop_reservation_table_title">Number</th>
+              <td class="shop_reservation_tabel_item" id="msgNumber"></td>
+            </tr>
+            <script src="{{ asset('/dist/js/reserve.js') }}"></script>
+          </table>
         </div>
-        <div>
-          @component('components.reserve_time')
-          @endcomponent
-        </div>
-        <div>
-          @component('components.reserve_number')
-          @endcomponent
-        </div>
-        <table class="shop_reservation_table">
-          <tr class="shop_detail_table_row">
-            <th class="shop_reservation_table_title">Shop</th>
-            <td class="shop_reservation_tabel_item">{{$detail->shop}}</td>
-          </tr>
-          <tr class="shop_detail_table_row">
-            <th class="shop_reservation_table_title">Date</th>
-            <td class="shop_reservation_tabel_item" id="msgDate"></td>
-          </tr>
-          <tr class="shop_detail_table_row">
-            <th class="shop_reservation_table_title">Time</th>
-            <td class="shop_reservation_tabel_item" id="msgTime"></td>
-          </tr>
-          <tr class="shop_detail_table_row">
-            <th class="shop_reservation_table_title">Number</th>
-            <td class="shop_reservation_tabel_item" id="msgNumber"></td>
-          </tr>
-          <script src="{{ asset('/dist/js/reserve.js') }}"></script>
-        </table>
-      </div>
-      <input class="shop_reservation_botton" type="submit" value="予約する">              
-    </form> 
+        <input class="shop_reservation_botton" type="submit" value="予約する">              
+      </form> 
     @endempty
   </main>
 </body>
+
 </html>
