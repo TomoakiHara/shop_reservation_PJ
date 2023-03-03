@@ -28,9 +28,7 @@ class UserController extends Controller
         // dd($password);
         $inputs = ['name' => $name, 'email' => $email,
             'password' => Hash::make($password)];
-        // $inputs = $request->all();
         // dd($inputs);
-        // unset($inputs['_token']);
         User::create($inputs);
         return view('thanks');
     }

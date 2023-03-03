@@ -18,21 +18,9 @@ use App\Http\Controllers\UserController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth'])->name('dashboard');
-
-// require __DIR__.'/auth.php';
-
 Route::get('/', [ShopController::class, 'index']);
 Route::get('/search', [ShopController::class, 'search']);
 Route::post('/detail', [ShopController::class, 'detail']);
-// Route::post('/detail/{id}', [ShopController::class, 'detail']);
-// Route::post('/reserve', [ReserveController::class, 'reserve']);
 Route::post('/reserve', [ReserveController::class, 'reserve'])->middleware('auth');
 Route::post('/cancel', [ReserveController::class, 'cancel']);
 Route::get('/mypage', [ReserveController::class, 'mypage']);
@@ -44,8 +32,3 @@ Route::get('/auth', [UserController::class, 'auth']);
 Route::get('/login', [UserController::class, 'login']);
 Route::get('/login_reserve', [UserController::class, 'login_reserve']);
 Route::get('/logout', [UserController::class, 'logout']);
-
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-

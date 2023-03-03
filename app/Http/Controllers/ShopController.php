@@ -13,8 +13,6 @@ class ShopController extends Controller
 {
     public function index()
     {
-        // (チャレンジ)Eagerロードの制約
-
         $user = Auth::user();
         // dd($user);
 
@@ -58,11 +56,9 @@ class ShopController extends Controller
 
         if(!empty($area_id)) {
             $query->where('area_id', 'like', "%{$area_id}%");
-            // like無しでOK
         }
         if(!empty($genre_id)) {
             $query->where('genre_id', 'like', "%{$genre_id}%");
-            // like無しでOK
         }
         if(!empty($shop)) {
             $query->where('shop', 'like', "%{$shop}%");
