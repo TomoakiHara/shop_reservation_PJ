@@ -48,11 +48,13 @@ class UserController extends Controller
             // dd($user);
             $text = Auth::user()->name . 'さん';
             // dd($text);
+            $shops = Shop::all();
+            // dd($shops);
             $reserves = Reserve::where('user_id', $user->id) -> get();
             // dd($reserves);
             $favorites = Favorite::where('user_id', $user->id) -> get();
             // dd($favorites);
-            $param = ['user' => $user, 'text' => $text, 'reserves' => $reserves, 'favorites' => $favorites];
+            $param = ['shops' => $shops, 'user' => $user, 'text' => $text, 'reserves' => $reserves, 'favorites' => $favorites];
             return view('mypage', $param);
         } else {
             $text = 'メールアドレスまたはパスワードが間違っています';

@@ -98,3 +98,12 @@ body {
   padding: 5px 15px;
   margin-left: 10px;
 }
+
+.favorite_icon {
+  position: absolute;
+  top: 70px;
+  left: 160px;
+  display: block;
+  border: none;
+  background-color: white;
+}

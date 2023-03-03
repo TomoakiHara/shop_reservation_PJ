@@ -86,6 +86,17 @@
               <form action="/" method="get">
                 <input class="shop_detail_botton" type="submit" value="詳しくみる">
               </form>
+                  @if ($user->id == $favorite->user_id && $favorite->shop->id == $favorite->shop_id)
+                    <form action="/delete/?shop_id={{$favorite->shop->id}}&user_id={{$user->id}}" method="post">
+                      @csrf
+                      <input class="favorite_icon" type="submit" value="❤">            
+                    </form>
+                  @else
+                    <form action="/favorite/?shop_id={{$favorite->shop->id}}&user_id={{$user->id}}" method="post">
+                      @csrf
+                      <input class="favorite_icon" type="submit" value="♡">
+                    </form>
+                  @endif
             </div>
           </div>
         </div>

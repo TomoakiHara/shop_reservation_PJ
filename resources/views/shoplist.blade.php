@@ -105,10 +105,10 @@
                 </form>
               @endif
               @empty
-              <form action="/favorite/?shop_id={{$shop->id}}&user_id={{$user->id}}" method="post">
-                @csrf
-                <input class="favorite_icon" type="submit" value="♡">
-              </form>
+                <form action="/favorite/?shop_id={{$shop->id}}&user_id={{$user->id}}" method="post">
+                  @csrf
+                  <input class="favorite_icon" type="submit" value="♡">
+                </form>
               @endempty
             @endforelse
         </div>
